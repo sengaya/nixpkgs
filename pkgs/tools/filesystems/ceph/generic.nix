@@ -1,6 +1,6 @@
 { stdenv, ensureNewerSourcesHook, autoconf, automake, makeWrapper, pkgconfig
 , libtool, which, git
-, boost, python, pythonPackages, libxml2, zlib
+, boost, pythonPackages, libxml2, zlib
 
 # Optional Dependencies
 , snappy ? null, leveldb ? null, yasm ? null, fcgi ? null, expat ? null
@@ -30,6 +30,7 @@ assert cryptopp != null || (nss != null && nspr != null);
 with stdenv;
 with stdenv.lib;
 let
+  inherit (pythonPackages) python;
   mkFlag = trueStr: falseStr: cond: name: val:
     if cond == null then null else
       "--${if cond != false then trueStr else falseStr}${name}"
